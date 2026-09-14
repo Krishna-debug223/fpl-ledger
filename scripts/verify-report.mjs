@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const here = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(here, '..');
+const report = JSON.parse(fs.readFileSync(path.join(root, 'data/gw3-report.json'), 'utf8'));
+const snap = JSON.parse(fs.readFileSync(path.join(root, 'data/gw3-snapshot-meta.json'), 'utf8'));
+const assert = (ok, msg) => { if (!ok) throw new Error(msg); };
+assert(report.gameweek === 3 && report.final === true, 'GW3 report must be final');
+assert(report.overall.count === 652, 'Unexpected overall player count');
+assert(report.activeCohort.count === 459, 'Unexpected active-cohort player count');
+assert(report.activeCohort.mae === 1.798, 'Unexpected active-cohort MAE');
+assert(report.activeCohort.within2 === 72.5, 'Unexpected +/-2 accuracy');
+assert(new Date(snap.lockedAt) < new Date(snap.deadline), 'Snapshot was not locked before deadline');
+assert(snap.lockedBeforeDeadline === true, 'Lock flag must remain true');
+assert(snap.contentHash === 'ec9658bb43d084fcaf736cd12979710bd7fd19874e2f7045fff08ad1d611a8ba', 'Snapshot hash changed');
+console.log('FPL Ledger GW3 portfolio data verified.');
