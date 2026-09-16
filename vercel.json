@@ -1,6 +1,4 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
     { "source": "/ledger", "destination": "/ledger.html" },
     { "source": "/reports/gw3", "destination": "/report.html" }
