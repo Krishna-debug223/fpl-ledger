@@ -13,6 +13,7 @@
       <a class="brand" href="/"><span class="brandMark">FL</span><span>FPL Ledger</span></a>
       <div class="links">
         <a href="/ledger">GW5 Ledger</a>
+        <a href="/reports/gw4">GW4 Archive</a>
         <a href="/reports/gw3">GW3 Archive</a>
         <a class="riskLink" href="https://fpl-risk-ui-refresh.vercel.app/">FPL Risk ↗</a>
       </div>
@@ -27,7 +28,7 @@
         <p class="lead">FPL Ledger is the accountability layer behind FPL Risk. It exposes the live GW5 projection set before the deadline, freezes the exact model output when the deadline arrives, fingerprints it, and only then evaluates the forecasts against official FPL points.</p>
         <div class="ctaRow">
           <a class="cta" href="/ledger">Inspect every GW5 projection →</a>
-          <a class="cta secondary" href="/reports/gw3">See the verified GW3 report</a>
+          <a class="cta secondary" href="/reports/gw4">Open the GW4 archive</a>
         </div>
       </div>
       <aside class="statusCard">
@@ -56,11 +57,29 @@
     </section>
 
     <section class="section">
+      <div class="sectionHead">
+        <h2>Forward-test archive</h2>
+        <p>Each completed Gameweek stays separate so later model changes never rewrite what was published beforehand.</p>
+      </div>
+
       <div class="archiveCard">
         <div class="archiveIntro">
+          <p class="eyebrow">ARCHIVED FORWARD TEST · GW4</p>
+          <h3>The full GW4 projection ledger is preserved.</h3>
+          <p>The original pre-deadline GW4 player projections remain available as published, alongside official FPL actual points and projection error once fixtures began. Nothing has been regenerated with the GW5 model.</p>
+          <div class="ctaRow"><a class="cta secondary" href="/reports/gw4">Inspect GW4 →</a></div>
+        </div>
+        <div class="archiveMetric"><strong>GW4</strong><span>Historical forward test</span></div>
+        <div class="archiveMetric"><strong>Full</strong><span>Published player projection pool</span></div>
+        <div class="archiveMetric"><strong>SHA-256</strong><span>Original fingerprint 444684c28ea0…</span></div>
+      </div>
+
+      <div class="archiveCard" style="margin-top:10px">
+        <div class="archiveIntro">
           <p class="eyebrow">VERIFIED ARCHIVE · GW3</p>
-          <h3>A completed forward test, kept separate from GW5.</h3>
-          <p>GW3 remains the historical validation benchmark while GW5 runs as a new public forward test. The old report is preserved rather than blended into the current gameweek.</p>
+          <h3>A completed forward test, preserved separately.</h3>
+          <p>GW3 remains a historical validation benchmark. Its frozen forecasts and accuracy report are kept unchanged rather than blended into later gameweeks.</p>
+          <div class="ctaRow"><a class="cta secondary" href="/reports/gw3">Open GW3 report →</a></div>
         </div>
         <div class="archiveMetric"><strong>1.798</strong><span>Active-player MAE</span></div>
         <div class="archiveMetric"><strong>72.5%</strong><span>Active players within ±2 points</span></div>
