@@ -50,6 +50,45 @@
 
     <section class="section">
       <div class="sectionHead">
+        <h2>Model progress · GW4 → GW5</h2>
+        <p>A side-by-side record of what changed between the preserved GW4 forward test and the current GW5 model. Predictive improvement is only claimed after a Gameweek is scored.</p>
+      </div>
+
+      <div class="archiveCard">
+        <div class="archiveIntro">
+          <p class="eyebrow">GW4 · FROZEN COMPARISON POINT</p>
+          <h3>The old forecast stays fixed.</h3>
+          <p>GW4 remains the original published projection pool with its historical actuals and errors. It is never recomputed with the GW5 code, so the comparison cannot benefit from hindsight.</p>
+          <div class="ctaRow"><a class="cta secondary" href="/reports/gw4">Inspect GW4 →</a></div>
+        </div>
+        <div class="archiveMetric"><strong>Frozen</strong><span>Historical forward test</span></div>
+        <div class="archiveMetric"><strong>Full</strong><span>Published player projection pool</span></div>
+        <div class="archiveMetric"><strong>444684c2…</strong><span>Original SHA-256 fingerprint</span></div>
+      </div>
+
+      <div class="archiveCard" style="margin-top:10px">
+        <div class="archiveIntro">
+          <p class="eyebrow">GW5 · CURRENT FORWARD TEST</p>
+          <h3>More explicit signals, tighter guardrails.</h3>
+          <p>The current model exposes fixture-difficulty attribution, ties confidence more directly to data quality, and can use a quality-weighted sportsbook cross-check whose influence is deliberately capped. The archive and lock rules remain unchanged.</p>
+          <div class="ctaRow"><a class="cta secondary" href="/ledger">Inspect GW5 →</a></div>
+        </div>
+        <div class="archiveMetric"><strong id="progress-model-version">—</strong><span>Current model version</span></div>
+        <div class="archiveMetric"><strong id="progress-player-count">—</strong><span>Players in current export</span></div>
+        <div class="archiveMetric"><strong>Pending</strong><span>Accuracy waits for the GW5 score</span></div>
+      </div>
+
+      <div class="reportGrid" style="margin-top:10px">
+        <article class="reportCard"><strong class="positive">More transparent</strong><span>Fixture difficulty is surfaced as an explicit projection component instead of remaining hidden inside the aggregate.</span></article>
+        <article class="reportCard"><strong class="positive">Better guarded</strong><span>Optional market information is quality-weighted and bounded so it can only nudge, not dominate, the football model.</span></article>
+        <article class="reportCard"><strong>Not yet scored</strong><span>GW5 will only be labelled more accurate if the frozen forecasts beat the historical error metrics once official points are available.</span></article>
+      </div>
+
+      <div class="noteBox"><strong>Measured vs engineered improvement:</strong> GW5 has clear modelling and audit-process upgrades today. Its actual MAE, RMSE and within-±2 rate will be added only after the deadline snapshot is locked and the Gameweek is complete.</div>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead">
         <h2>Leading GW5 projections</h2>
         <p>A preview of the same projection pool shown in FPL Risk. The full public ledger is searchable and filterable.</p>
       </div>
@@ -127,12 +166,16 @@
       setText('#generated-at', formatShortTime(data.generatedAt));
       setText('#fingerprint-state', ledger.mode === 'locked' ? 'Locked' : 'Pending');
       setText('#fingerprint-note', ledger.contentHash ? `${ledger.contentHash.slice(0, 12)}…` : 'Created at lock');
+      setText('#progress-model-version', data.modelVersion ?? '—');
+      setText('#progress-player-count', data.playerCount ?? data.rows?.length ?? '—');
       renderCountdown();
       document.querySelector('#preview').innerHTML = projectionTable(topRows(data, 8));
       setInterval(renderCountdown, 30000);
     } catch (error) {
       renderError('#preview', error instanceof Error ? error.message : 'Unknown data error');
       setText('#countdown', 'Feed unavailable');
+      setText('#progress-model-version', 'Feed unavailable');
+      setText('#progress-player-count', '—');
     }
   </script>
 </body>
