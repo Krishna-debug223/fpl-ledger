@@ -1,7 +1,7 @@
 {
   "rewrites": [
     { "source": "/ledger", "destination": "/ledger.html" },
-    { "source": "/reports/gw4", "destination": "https://fpl-ledger-34tt2is8n-dininabian123-4472.vercel.app/ledger" },
+    { "source": "/reports/gw4", "destination": "/gw4.html" },
     { "source": "/reports/gw3", "destination": "/report.html" }
   ],
   "headers": [
