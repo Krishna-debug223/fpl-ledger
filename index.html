@@ -1,1 +1,120 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FPL Ledger</title><link rel="stylesheet" href="styles.css"></head><body><main class="wrap"><nav class="nav"><a href="index.html">FPL Ledger</a><div class="links"><a href="ledger.html">Ledger</a><a href="report.html">GW3 Report</a><a href="https://fpl-ledger-azure.vercel.app">Live ↗</a></div></nav><p class="eyebrow">Forward testing for FPL forecasts</p><h1>Predictions that can't move after kickoff.</h1><p class="lead">FPL Ledger freezes player projections before the deadline, fingerprints the snapshot, then scores the exact same forecasts against official results. It is the accountability layer behind FPL Risk.</p><div class="grid"><div class="card"><div class="metric">1.798</div><div class="label">GW3 active-player MAE</div></div><div class="card"><div class="metric">72.5%</div><div class="label">Active players within +/-2 points</div></div><div class="card"><div class="metric">459</div><div class="label">Active-player forecasts evaluated</div></div></div><section class="section"><h2>Two systems, one feedback loop.</h2><p class="lead">FPL Risk forecasts and recommends. FPL Ledger locks, measures and calibrates. Separating those jobs keeps hindsight out of the evaluation process.</p><a class="cta" href="ledger.html">Inspect the frozen sample →</a></section></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="FPL Ledger freezes FPL Risk projections at the Gameweek deadline, then scores the exact same forecasts against official results.">
+  <title>FPL Ledger — GW5 Forward Test</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="navShell">
+    <nav class="nav">
+      <a class="brand" href="/"><span class="brandMark">FL</span><span>FPL Ledger</span></a>
+      <div class="links">
+        <a href="/ledger">GW5 Ledger</a>
+        <a href="/reports/gw3">GW3 Archive</a>
+        <a class="riskLink" href="https://fpl-risk-ui-refresh.vercel.app/">FPL Risk ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <p class="eyebrow" data-ledger-eyebrow>GW5 · PUBLIC FORWARD TEST</p>
+        <h1>Forecasts first.<br>Score them later.</h1>
+        <p class="lead">FPL Ledger is the accountability layer behind FPL Risk. It exposes the live GW5 projection set before the deadline, freezes the exact model output when the deadline arrives, fingerprints it, and only then evaluates the forecasts against official FPL points.</p>
+        <div class="ctaRow">
+          <a class="cta" href="/ledger">Inspect every GW5 projection →</a>
+          <a class="cta secondary" href="/reports/gw3">See the verified GW3 report</a>
+        </div>
+      </div>
+      <aside class="statusCard">
+        <span class="statusLabel">Current ledger state</span>
+        <strong class="statusBadge" data-ledger-status data-tone="live">GW5 PRE-LOCK</strong>
+        <p data-ledger-detail>Projections remain live until the FPL deadline. The exact deadline output will then be frozen and fingerprinted.</p>
+        <div class="countdown"><span>Deadline</span><strong id="countdown">Loading…</strong></div>
+      </aside>
+    </section>
+
+    <section class="metricGrid" aria-label="GW5 ledger metadata">
+      <article class="metricCard"><span>Players tracked</span><strong id="player-count">—</strong><small>Full FPL player pool</small></article>
+      <article class="metricCard"><span>Model version</span><strong id="model-version">—</strong><small>Recorded with the lock</small></article>
+      <article class="metricCard"><span>Last projection build</span><strong id="generated-at">—</strong><small>Live before deadline</small></article>
+      <article class="metricCard"><span>Immutable fingerprint</span><strong id="fingerprint-state">Pending</strong><small id="fingerprint-note">Created at lock</small></article>
+    </section>
+
+    <div class="noteBox"><strong>No hindsight.</strong> Before the deadline, GW5 values can move only because the underlying FPL Risk inputs move. Once the immutable lock exists, Ledger switches to that frozen artifact and the evaluated projection set cannot be rewritten retroactively.</div>
+
+    <section class="section">
+      <div class="sectionHead">
+        <h2>Leading GW5 projections</h2>
+        <p>A preview of the same projection pool shown in FPL Risk. The full public ledger is searchable and filterable.</p>
+      </div>
+      <div id="preview" class="tableWrap"><div class="loading">Loading the live GW5 projection export…</div></div>
+    </section>
+
+    <section class="section">
+      <div class="archiveCard">
+        <div class="archiveIntro">
+          <p class="eyebrow">VERIFIED ARCHIVE · GW3</p>
+          <h3>A completed forward test, kept separate from GW5.</h3>
+          <p>GW3 remains the historical validation benchmark while GW5 runs as a new public forward test. The old report is preserved rather than blended into the current gameweek.</p>
+        </div>
+        <div class="archiveMetric"><strong>1.798</strong><span>Active-player MAE</span></div>
+        <div class="archiveMetric"><strong>72.5%</strong><span>Active players within ±2 points</span></div>
+        <div class="archiveMetric"><strong>459</strong><span>Active-player forecasts evaluated</span></div>
+      </div>
+    </section>
+
+    <footer class="footer"><span>Independent FPL analytics · estimates, not guarantees.</span><span>FPL Risk forecasts. FPL Ledger records and evaluates.</span></footer>
+  </main>
+
+  <script type="module">
+    import { escapeHtml, formatShortTime, loadCurrentLedger, one, setStatus, setText, timeUntil, topRows, renderError } from './app.js';
+
+    let currentDeadline = null;
+    let currentMode = 'prelock';
+
+    function renderCountdown() {
+      if (!currentDeadline) return;
+      const label = currentMode === 'locked' ? 'Locked' : timeUntil(currentDeadline);
+      setText('#countdown', label);
+    }
+
+    function projectionTable(rows) {
+      const body = rows.map((row) => `
+        <tr>
+          <td class="playerCell"><strong>${escapeHtml(row.name)}</strong><span>${escapeHtml(row.team)}</span></td>
+          <td>${escapeHtml(row.position)}</td>
+          <td>${escapeHtml(row.fixture)}</td>
+          <td class="xPts">${one(row.projected)}</td>
+          <td><span class="pill ${String(row.risk || '').toLowerCase()}">${escapeHtml(row.risk || '—')}</span></td>
+          <td>${escapeHtml(row.confidence || '—')}</td>
+          <td>${Math.round(Number(row.dataQuality || 0))}%</td>
+        </tr>`).join('');
+      return `<table><thead><tr><th>Player</th><th>Pos</th><th>Fixture</th><th>xPts</th><th>Risk</th><th>Confidence</th><th>Data quality</th></tr></thead><tbody>${body}</tbody></table>`;
+    }
+
+    try {
+      const ledger = await loadCurrentLedger();
+      const data = ledger.data;
+      currentMode = ledger.mode;
+      currentDeadline = data.deadlineTime;
+      setStatus(ledger.mode);
+      setText('#player-count', data.playerCount ?? data.rows?.length ?? '—');
+      setText('#model-version', data.modelVersion ?? '—');
+      setText('#generated-at', formatShortTime(data.generatedAt));
+      setText('#fingerprint-state', ledger.mode === 'locked' ? 'Locked' : 'Pending');
+      setText('#fingerprint-note', ledger.contentHash ? `${ledger.contentHash.slice(0, 12)}…` : 'Created at lock');
+      renderCountdown();
+      document.querySelector('#preview').innerHTML = projectionTable(topRows(data, 8));
+      setInterval(renderCountdown, 30000);
+    } catch (error) {
+      renderError('#preview', error instanceof Error ? error.message : 'Unknown data error');
+      setText('#countdown', 'Feed unavailable');
+    }
+  </script>
+</body>
+</html>
