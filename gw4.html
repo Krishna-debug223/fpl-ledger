@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="The preserved GW4 FPL Ledger archive, with navigation back to the active GW5 forward test.">
-  <title>FPL Ledger — GW4 Archive</title>
+  <meta name="description" content="GW4 archive reference for FPL Ledger, preserving the original snapshot fingerprint and historical deployment reference.">
+  <title>FPL Ledger — GW4 Archive Reference</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -22,68 +22,52 @@
 
   <main class="wrap">
     <section class="reportHero">
-      <p class="eyebrow">ARCHIVED FORWARD TEST · GW4</p>
-      <h1>The GW4 record,<br>without leaving the Ledger.</h1>
-      <p class="lead">This page keeps the current FPL Ledger navigation around the historical GW4 test. The original frozen GW4 deployment remains untouched, so the projections cannot be silently regenerated with the newer GW5 model.</p>
+      <p class="eyebrow">GW4 · ARCHIVE REFERENCE</p>
+      <h1>GW4 archive<br>reference.</h1>
+      <p class="lead">This page preserves the original GW4 snapshot fingerprint and a link to the historical deployment. The exact per-player GW4 snapshot is not currently stored in this repository, so verified GW4 accuracy metrics are not published here.</p>
       <div class="ctaRow">
         <a class="cta" href="/ledger">Back to GW5 →</a>
-        <a class="cta secondary" href="https://fpl-ledger-34tt2is8n-dininabian123-4472.vercel.app/ledger" target="_blank" rel="noopener">Open original frozen GW4 ledger ↗</a>
+        <a class="cta secondary" href="https://fpl-ledger-34tt2is8n-dininabian123-4472.vercel.app/ledger" target="_blank" rel="noopener">Open historical deployment ↗</a>
       </div>
     </section>
 
-    <section class="metricGrid" aria-label="GW4 archive integrity">
-      <article class="metricCard"><span>Gameweek</span><strong>GW4</strong><small>Preserved forward test</small></article>
-      <article class="metricCard"><span>Archive state</span><strong>Frozen</strong><small>Original deployment is unchanged</small></article>
-      <article class="metricCard"><span>Integrity</span><strong>SHA-256</strong><small>Fingerprint recorded before later model changes</small></article>
-      <article class="metricCard"><span>Next test</span><strong>GW5</strong><small><a href="/ledger">Open current ledger</a></small></article>
+    <section class="metricGrid" aria-label="GW4 archive reference">
+      <article class="metricCard"><span>Gameweek</span><strong>GW4</strong><small>Historical reference</small></article>
+      <article class="metricCard"><span>Archive</span><strong>Reference</strong><small>Fingerprint and deployment link preserved</small></article>
+      <article class="metricCard"><span>Accuracy</span><strong>Not published</strong><small>Per-player snapshot unavailable here</small></article>
+      <article class="metricCard"><span>Current test</span><strong>GW5</strong><small><a href="/ledger">Open current ledger</a></small></article>
     </section>
 
     <div class="integrity">
-      <span>Original GW4 frozen-snapshot fingerprint</span>
+      <span>Original GW4 snapshot fingerprint</span>
       <code>444684c28ea00f26cbee5af9a107c4693c76ff25d891ea7b78bd06f3b884fa39</code>
     </div>
 
     <section class="section">
       <div class="sectionHead">
-        <h2>GW4 → GW5 model evolution</h2>
-        <p>These are changes to the modelling and audit process. GW5 predictive accuracy will only be compared after its deadline snapshot is locked and official FPL points exist.</p>
+        <h2>What is preserved</h2>
+        <p>Only evidence that can be verified from the current project is listed here.</p>
       </div>
-      <div class="archiveCard">
-        <div class="archiveIntro">
-          <p class="eyebrow">GW4 · FROZEN BASELINE</p>
-          <h3>Historical predictions stay historical.</h3>
-          <p>The original GW4 projection pool and its fingerprint remain the comparison point. No GW5 code is used to rewrite the archived forecasts.</p>
-        </div>
-        <div class="archiveMetric"><strong>Frozen</strong><span>Immutable historical test</span></div>
-        <div class="archiveMetric"><strong>Full</strong><span>Published projection pool</span></div>
-        <div class="archiveMetric"><strong>Official</strong><span>Actual FPL points used for evaluation</span></div>
-      </div>
-
-      <div class="archiveCard" style="margin-top:10px">
-        <div class="archiveIntro">
-          <p class="eyebrow">GW5 · CURRENT MODEL</p>
-          <h3>More explicit signals and tighter guardrails.</h3>
-          <p>GW5 exposes fixture-difficulty attribution, data-quality-driven confidence and a bounded optional sportsbook cross-check. The market signal is only used when available and configured, and its influence is deliberately capped.</p>
-        </div>
-        <div class="archiveMetric"><strong>1.2.0-beta.2</strong><span>Current projection model</span></div>
-        <div class="archiveMetric"><strong>Explicit</strong><span>Fixture-difficulty contribution</span></div>
-        <div class="archiveMetric"><strong>Capped</strong><span>Optional market influence</span></div>
+      <div class="reportGrid">
+        <article class="reportCard"><strong>Snapshot fingerprint</strong><span>The recorded SHA-256 fingerprint above identifies the original GW4 snapshot reference.</span></article>
+        <article class="reportCard"><strong>Historical deployment</strong><span>The original deployment reference is kept separate from the current GW5 Ledger.</span></article>
+        <article class="reportCard"><strong>Navigation back to GW5</strong><span>This archive page stays inside the current Ledger so the active forward test remains one click away.</span></article>
       </div>
     </section>
 
     <section class="section">
       <div class="sectionHead">
-        <h2>What can be claimed today</h2>
-        <p>The Ledger separates model-development progress from measured predictive progress.</p>
+        <h2>What is not available here</h2>
+        <p>Ledger does not fill gaps with reconstructed or recomputed historical values.</p>
       </div>
       <div class="reportGrid">
-        <article class="reportCard"><strong class="positive">Improved</strong><span>Transparency: more of the projection inputs and confidence logic are visible in GW5.</span></article>
-        <article class="reportCard"><strong class="positive">Improved</strong><span>Guardrails: optional market information is quality-weighted and tightly bounded rather than allowed to dominate.</span></article>
-        <article class="reportCard"><strong>Pending</strong><span>Accuracy: GW5 will not be called more accurate until the frozen GW5 forecasts are scored against official results.</span></article>
+        <article class="reportCard"><strong>Per-player GW4 snapshot</strong><span>The exact original player-level projection file is not currently present in this repository.</span></article>
+        <article class="reportCard"><strong>Verified GW4 scoring metrics</strong><span>MAE, RMSE, bias and within-±2 results are not shown because the underlying locked snapshot has not been recovered here.</span></article>
+        <article class="reportCard"><strong>No backfill</strong><span>The current GW5 model will not be used to recreate GW4 forecasts and present them as historical predictions.</span></article>
       </div>
     </section>
 
-    <div class="noteBox"><strong>Why the original opens in a new tab:</strong> it preserves the untouched historical deployment while this current page stays open, so you can return to GW5 immediately instead of getting stranded in the old navigation.</div>
+    <div class="noteBox"><strong>If the original snapshot is recovered:</strong> it can be added as an immutable historical artifact and scored against official GW4 points without changing the forecasts.</div>
 
     <footer class="footer"><span>Independent FPL analytics · estimates, not guarantees.</span><span><a href="/ledger">Return to the GW5 Ledger</a></span></footer>
   </main>
