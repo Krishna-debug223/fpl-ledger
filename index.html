@@ -25,7 +25,7 @@
       <div>
         <p class="eyebrow" data-ledger-eyebrow>GW5 · PUBLIC FORWARD TEST</p>
         <h1>Forecasts first.<br>Score them later.</h1>
-        <p class="lead">FPL Ledger records the forecasts produced by FPL Risk. Before the deadline, you can inspect the live GW5 projection set. At the deadline, the exact output is frozen and fingerprinted. After the Gameweek, that same snapshot is scored against official FPL points.</p>
+        <p class="lead">FPL Ledger records the forecasts produced by FPL Risk. Before the deadline, you can inspect the live GW5 projection set. At the deadline, the exact output is frozen. After the Gameweek, that same snapshot is scored against official FPL points.</p>
         <div class="ctaRow">
           <a class="cta" href="/ledger">Inspect every GW5 projection →</a>
           <a class="cta secondary" href="/reports/gw3">View a completed score report</a>
@@ -34,7 +34,7 @@
       <aside class="statusCard">
         <span class="statusLabel">Current ledger state</span>
         <strong class="statusBadge" data-ledger-status data-tone="live">GW5 PRE-LOCK</strong>
-        <p data-ledger-detail>Projections remain live until the FPL deadline. The exact deadline output will then be frozen and fingerprinted.</p>
+        <p data-ledger-detail>Projections remain live until the FPL deadline. The exact deadline output will then be frozen for later scoring.</p>
         <div class="countdown"><span>Deadline</span><strong id="countdown">Loading…</strong></div>
       </aside>
     </section>
@@ -43,7 +43,7 @@
       <article class="metricCard"><span>Players tracked</span><strong id="player-count">—</strong><small>Rows in the current projection export</small></article>
       <article class="metricCard"><span>Model version</span><strong id="model-version">—</strong><small>Version recorded with the snapshot</small></article>
       <article class="metricCard"><span>Last projection build</span><strong id="generated-at">—</strong><small>Updates before the deadline</small></article>
-      <article class="metricCard"><span>Snapshot fingerprint</span><strong id="fingerprint-state">Pending</strong><small id="fingerprint-note">Created when GW5 locks</small></article>
+      <article class="metricCard"><span>Deadline snapshot</span><strong id="fingerprint-state">Pending</strong><small id="fingerprint-note">Frozen when GW5 locks</small></article>
     </section>
 
     <div class="noteBox"><strong>Forward-test rule:</strong> only the frozen deadline snapshot is scored. Pre-deadline projections can change as the underlying FPL Risk inputs change; once locked, the evaluated forecast set does not change.</div>
@@ -69,12 +69,12 @@
       <div class="archiveCard" style="margin-top:10px">
         <div class="archiveIntro">
           <p class="eyebrow">GW4 · ARCHIVE REFERENCE</p>
-          <h3>Fingerprint preserved; scoring not published here.</h3>
-          <p>The original GW4 snapshot fingerprint and historical deployment reference are preserved. The exact per-player GW4 snapshot is not currently stored in this repository, so Ledger does not publish unverified GW4 accuracy metrics.</p>
+          <h3>Historical record preserved.</h3>
+          <p>The original GW4 deployment reference is preserved. The exact per-player GW4 snapshot is not currently stored in this repository, so Ledger does not publish unverified GW4 accuracy metrics.</p>
           <div class="ctaRow"><a class="cta secondary" href="/reports/gw4">Open GW4 reference →</a></div>
         </div>
-        <div class="archiveMetric"><strong>444684c2…</strong><span>Original SHA-256 fingerprint</span></div>
-        <div class="archiveMetric"><strong>Reference</strong><span>Historical deployment preserved</span></div>
+        <div class="archiveMetric"><strong>Archived</strong><span>Original GW4 snapshot reference</span></div>
+        <div class="archiveMetric"><strong>Historical</strong><span>Original deployment link preserved</span></div>
         <div class="archiveMetric"><strong>Not published</strong><span>Verified GW4 accuracy</span></div>
       </div>
 
@@ -138,7 +138,7 @@
       setText('#model-version', data.modelVersion ?? '—');
       setText('#generated-at', formatShortTime(data.generatedAt));
       setText('#fingerprint-state', ledger.mode === 'locked' ? 'Locked' : 'Pending');
-      setText('#fingerprint-note', ledger.contentHash ? `${ledger.contentHash.slice(0, 12)}…` : 'Created when GW5 locks');
+      setText('#fingerprint-note', ledger.mode === 'locked' ? 'Frozen deadline record' : 'Frozen when GW5 locks');
       setText('#progress-model-version', data.modelVersion ?? '—');
       setText('#progress-player-count', data.playerCount ?? data.rows?.length ?? '—');
       renderCountdown();
