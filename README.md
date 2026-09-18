@@ -1,10 +1,10 @@
-# FPL Ledger
+# FPL Modelbook
 
 **Live site:** https://fpl-ledger-azure.vercel.app  
-**Current ledger:** https://fpl-ledger-azure.vercel.app/ledger  
+**Current Modelbook:** https://fpl-ledger-azure.vercel.app/modelbook
 **Forecast engine:** https://fpl-risk-ui-refresh.vercel.app
 
-FPL Ledger is the validation companion to FPL Risk. It separates **prediction time** from **evaluation time** so the model cannot be made to look better by changing its forecasts after the deadline.
+FPL Modelbook is the validation companion to FPL Risk. It separates **prediction time** from **evaluation time** so the model cannot be made to look better by changing its forecasts after the deadline.
 
 ## Current forward test: GW5
 
@@ -76,7 +76,7 @@ Open the [GW4 verified report](https://fpl-ledger-azure.vercel.app/reports/gw4) 
 - `report.html` — verified GW3 archive report.
 - `gw4.html` — verified GW4 archive report.
 - `app.js` — current Gameweek configuration, live/locked source selection and shared UI helpers.
-- `styles.css` — shared FPL Ledger visual system.
+- `styles.css` — shared FPL Modelbook visual system.
 - `data/gw3-report.json` — verified final GW3 error metrics.
 - `data/gw3-snapshot-meta.json` — preserved GW3 metadata/sample artifact.
 - `data/gw4-report.json` — verified final GW4 error metrics.
@@ -108,10 +108,10 @@ node scripts/freeze-gw5.mjs
 ## Relationship to FPL Risk
 
 - **FPL Risk** forecasts and supports FPL decisions.
-- **FPL Ledger** records, freezes, scores and audits those forecasts.
+- **FPL Modelbook** records, freezes, scores and audits those forecasts.
 
-The Ledger never changes the projection calculations in FPL Risk.
+The Modelbook never changes the projection calculations in FPL Risk.
 
 ## Disclaimer
 
-FPL Ledger is an independent project and is not affiliated with, endorsed by or sponsored by the Premier League. It uses public Fantasy Premier League data for educational and analytical purposes.
+FPL Modelbook is an independent project and is not affiliated with, endorsed by or sponsored by the Premier League. It uses public Fantasy Premier League data for educational and analytical purposes.
