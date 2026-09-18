@@ -58,15 +58,30 @@ The frozen GW3 snapshot was previously scored against official results and remai
 
 GW3 is not blended into GW5. Model revisions belong to later forward tests and do not rewrite historical reports.
 
+## Verified GW4 archive
+
+The GW4 archive now scores the original 654-player projection pool against the official FPL event-4 results. The active cohort contains players with recorded minutes:
+
+| Cohort | Players | MAE | RMSE | Bias | Within +/-2 |
+|---|---:|---:|---:|---:|---:|
+| All listed players | 654 | 1.414 | 2.274 | -0.151 | 79.5% |
+| Active cohort | 307 | 2.124 | 3.091 | +0.568 | 63.2% |
+
+Open the [GW4 verified report](https://fpl-ledger-azure.vercel.app/reports/gw4) to see the position breakdown and largest misses. The original projection payload is preserved in `data/gw4-6796113166812888.json`; the official-results capture is timestamped in `data/gw4-actuals-cache.json`; and the report metrics are stored in `data/gw4-report.json`.
+
 ## Repository contents
 
 - `index.html` — current GW5 forward-test overview.
 - `ledger.html` — live/pre-lock or frozen/locked GW5 player ledger.
 - `report.html` — verified GW3 archive report.
+- `gw4.html` — verified GW4 archive report.
 - `app.js` — current Gameweek configuration, live/locked source selection and shared UI helpers.
 - `styles.css` — shared FPL Ledger visual system.
 - `data/gw3-report.json` — verified final GW3 error metrics.
 - `data/gw3-snapshot-meta.json` — preserved GW3 metadata/sample artifact.
+- `data/gw4-report.json` — verified final GW4 error metrics.
+- `data/gw4-6796113166812888.json` — immutable original GW4 projection payload.
+- `data/gw4-actuals-cache.json` — timestamped official GW4 results capture used for scoring.
 - `scripts/freeze-gw5.mjs` — deadline-safe utility that creates the immutable GW5 lock artifact.
 - `scripts/verify-report.mjs` — integrity assertions for the archived GW3 report.
 

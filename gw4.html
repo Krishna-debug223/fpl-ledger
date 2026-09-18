@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="GW4 archive reference for FPL Ledger, preserving the historical deployment and technical snapshot record.">
-  <title>FPL Ledger — GW4 Archive Reference</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Verified FPL Ledger GW4 forward-test accuracy report.">
+  <title>FPL Ledger — GW4 Verified Report</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
     <nav class="nav">
       <a class="brand" href="/"><span class="brandMark">FL</span><span>FPL Ledger</span></a>
       <div class="links">
-        <a href="/">GW5 Overview</a>
         <a href="/ledger">GW5 Ledger</a>
+        <a href="/reports/gw4">GW4 Archive</a>
         <a href="/reports/gw3">GW3 Archive</a>
         <a class="riskLink" href="https://fpl-risk-ui-refresh.vercel.app/">FPL Risk ↗</a>
       </div>
@@ -22,58 +22,60 @@
 
   <main class="wrap">
     <section class="reportHero">
-      <p class="eyebrow">GW4 · ARCHIVE REFERENCE</p>
-      <h1>GW4 archive<br>reference.</h1>
-      <p class="lead">This page preserves the historical GW4 deployment reference. The exact per-player GW4 snapshot is not currently stored in this repository, so verified GW4 accuracy metrics are not published here.</p>
-      <div class="ctaRow">
-        <a class="cta" href="/ledger">Back to GW5 →</a>
-        <a class="cta secondary" href="https://fpl-ledger-34tt2is8n-dininabian123-4472.vercel.app/ledger" target="_blank" rel="noopener">Open historical deployment ↗</a>
-      </div>
+      <p class="eyebrow">GW4 · VERIFIED FORWARD TEST</p>
+      <h1>Score the forecast.<br>Then learn.</h1>
+      <p class="lead">This archived report scores the original frozen GW4 projections against official FPL results. It stays unchanged while later gameweeks run as separate forward tests.</p>
     </section>
 
-    <section class="metricGrid" aria-label="GW4 archive reference">
-      <article class="metricCard"><span>Gameweek</span><strong>GW4</strong><small>Historical reference</small></article>
-      <article class="metricCard"><span>Archive</span><strong>Preserved</strong><small>Original deployment reference kept</small></article>
-      <article class="metricCard"><span>Accuracy</span><strong>Not published</strong><small>Per-player snapshot unavailable here</small></article>
-      <article class="metricCard"><span>Current test</span><strong>GW5</strong><small><a href="/ledger">Open current ledger</a></small></article>
+    <div id="cards" class="reportGrid"><div class="loading">Loading verified metrics…</div></div>
+
+    <section class="section">
+      <div class="sectionHead">
+        <h2>Active cohort by position</h2>
+        <p>The active cohort is the headline view because it removes players with zero or limited participation from the main model assessment.</p>
+      </div>
+      <div class="tableWrap">
+        <table>
+          <thead><tr><th>Position</th><th>n</th><th>MAE</th><th>RMSE</th><th>Bias</th><th>Within ±2</th></tr></thead>
+          <tbody id="positions"></tbody>
+        </table>
+      </div>
     </section>
 
     <section class="section">
       <div class="sectionHead">
-        <h2>What is preserved</h2>
-        <p>Only evidence that can be verified from the current project is listed here.</p>
+        <h2>Largest misses</h2>
+        <p>The biggest absolute errors are kept visible rather than excluded from the headline narrative.</p>
       </div>
-      <div class="reportGrid">
-        <article class="reportCard"><strong>Historical deployment</strong><span>The original GW4 deployment reference remains available separately from the active GW5 Ledger.</span></article>
-        <article class="reportCard"><strong>Technical integrity record</strong><span>A SHA-256 fingerprint of the historical snapshot reference is retained for audit purposes, but it is not a user-facing performance metric.</span></article>
-        <article class="reportCard"><strong>Navigation back to GW5</strong><span>This archive page stays inside the current Ledger so the active forward test remains one click away.</span></article>
-      </div>
-    </section>
-
-    <details class="technicalDetails">
-      <summary>Technical integrity details</summary>
-      <div class="integrity">
-        <span>Original GW4 SHA-256 snapshot fingerprint</span>
-        <code>444684c28ea00f26cbee5af9a107c4693c76ff25d891ea7b78bd06f3b884fa39</code>
-      </div>
-      <p>This identifier is only used to verify that a historical snapshot has not been swapped or altered. It does not measure model quality.</p>
-    </details>
-
-    <section class="section">
-      <div class="sectionHead">
-        <h2>What is not available here</h2>
-        <p>Ledger does not fill gaps with reconstructed or recomputed historical values.</p>
-      </div>
-      <div class="reportGrid">
-        <article class="reportCard"><strong>Per-player GW4 snapshot</strong><span>The exact original player-level projection file is not currently present in this repository.</span></article>
-        <article class="reportCard"><strong>Verified GW4 scoring metrics</strong><span>MAE, RMSE, bias and within-±2 results are not shown because the underlying locked snapshot has not been recovered here.</span></article>
-        <article class="reportCard"><strong>No backfill</strong><span>The current GW5 model will not be used to recreate GW4 forecasts and present them as historical predictions.</span></article>
+      <div class="tableWrap">
+        <table>
+          <thead><tr><th>Player</th><th>Pos</th><th>Projected</th><th>Actual</th><th>Abs. error</th></tr></thead>
+          <tbody id="misses"></tbody>
+        </table>
       </div>
     </section>
 
-    <div class="noteBox"><strong>If the original snapshot is recovered:</strong> it can be added as an immutable historical artifact and scored against official GW4 points without changing the forecasts.</div>
+    <div class="noteBox"><strong>Archive rule:</strong> GW4 is historical evidence, not a backtest of the current GW5 state. The original frozen GW4 projections and official points are preserved here; later model changes cannot rewrite this report.</div>
 
-    <footer class="footer"><span>Independent FPL analytics · estimates, not guarantees.</span><span><a href="/ledger">Return to the GW5 Ledger</a></span></footer>
+    <footer class="footer"><span>Independent FPL analytics · model estimates, not guarantees.</span><span><a href="/ledger">Return to the live GW5 ledger →</a></span></footer>
   </main>
+
+  <script type="module">
+    import { escapeHtml, loadJson } from '/app.js';
+    try {
+      const data = await loadJson('/data/gw4-report.json');
+      const active = data.activeCohort;
+      document.querySelector('#cards').innerHTML = `
+        <article class="reportCard"><strong>${active.mae.toFixed(3)}</strong><span>Active-player MAE</span></article>
+        <article class="reportCard"><strong>${active.rmse.toFixed(3)}</strong><span>Active-player RMSE</span></article>
+        <article class="reportCard"><strong>${active.within2.toFixed(1)}%</strong><span>Within ±2 FPL points</span></article>`;
+      document.querySelector('#positions').innerHTML = Object.entries(data.byPosition).map(([position, values]) => `
+        <tr><td><strong>${escapeHtml(position)}</strong></td><td>${values.count}</td><td>${values.mae.toFixed(3)}</td><td>${values.rmse.toFixed(3)}</td><td class="${values.bias > 0 ? 'positive' : values.bias < 0 ? 'negative' : ''}">${values.bias >= 0 ? '+' : ''}${values.bias.toFixed(3)}</td><td>${values.within2.toFixed(1)}%</td></tr>`).join('');
+      document.querySelector('#misses').innerHTML = data.largestMisses.map((row) => `
+        <tr><td class="playerCell"><strong>${escapeHtml(row.name)}</strong></td><td>${escapeHtml(row.position)}</td><td>${row.projected.toFixed(3)}</td><td>${row.actual}</td><td>${row.error.toFixed(3)}</td></tr>`).join('');
+    } catch (error) {
+      document.querySelector('#cards').innerHTML = '<div class="errorBox"><strong>Archive unavailable</strong><span>Could not load the verified GW4 report.</span></div>';
+    }
+  </script>
 </body>
 </html>
