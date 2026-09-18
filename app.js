@@ -100,7 +100,7 @@ export function ledgerStatus(mode, lockMode = "official-deadline") {
     return {
       label: "LOCK PENDING",
       eyebrow: `GW${CURRENT_GAMEWEEK} · DEADLINE REACHED`,
-      detail: "The deadline has passed. Ledger is waiting for the immutable lock artifact before scoring begins.",
+      detail: "The deadline has passed. Modelbook is waiting for the immutable lock artifact before scoring begins.",
       tone: "pending",
     };
   }
@@ -142,5 +142,5 @@ export function setStatus(mode, lockMode) {
 export function renderError(target, message) {
   const node = document.querySelector(target);
   if (!node) return;
-  node.innerHTML = `<div class="errorBox"><strong>Live Ledger unavailable</strong><span>${escapeHtml(message)}</span><button type="button" onclick="location.reload()">Retry</button></div>`;
+  node.innerHTML = `<div class="errorBox"><strong>Live Modelbook unavailable</strong><span>${escapeHtml(message)}</span><button type="button" onclick="location.reload()">Retry</button></div>`;
 }
