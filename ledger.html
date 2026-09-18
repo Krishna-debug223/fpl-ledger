@@ -42,12 +42,12 @@
       <article class="metricCard"><span>Generated</span><strong id="generated-at">—</strong><small id="source-state">Live production export</small></article>
     </section>
 
-    <div class="noteBox"><strong>Scoring rule:</strong> only the frozen GW5 deadline snapshot is evaluated. PRE-LOCK values are provisional because the model can receive updated injuries, fixtures and source data before the deadline.</div>
+    <div class="noteBox"><strong>Scoring rule:</strong> only the frozen GW5 deadline snapshot is evaluated. PRE-LOCK values are provisional because the model can receive updated injuries, fixtures and source data before the deadline. <span id="actuals-note">Official points appear in the Actual column once a player records minutes.</span></div>
 
     <section class="section">
       <div class="sectionHead">
         <h2>Player projections</h2>
-        <p>Search and filter the current export. Sorting or filtering changes only the view, never the stored forecast values.</p>
+        <p>Search and filter the current export. Sorting or filtering changes only the view, never the stored forecast values. Actual points fill in from the official live feed as matches are played.</p>
       </div>
       <div class="tools">
         <input id="search" type="search" autocomplete="off" placeholder="Search player or club">
@@ -81,7 +81,7 @@
   </main>
 
   <script type="module">
-    import { escapeHtml, formatDateTime, formatShortTime, loadCurrentLedger, one, pct, renderError, setStatus, setText, timeUntil } from './app.js';
+    import { actualPointsFor, escapeHtml, formatDateTime, formatShortTime, loadCurrentLedger, loadLivePoints, one, pct, renderError, setStatus, setText, timeUntil } from './app.js';
 
     const search = document.querySelector('#search');
     const position = document.querySelector('#position');
@@ -90,6 +90,7 @@
     let rows = [];
     let currentMode = 'prelock';
     let currentDeadline = null;
+    let livePoints = { available: false, players: {}, fetchedAt: null };
 
     function renderCountdown() {
       if (!currentDeadline) return;
@@ -124,6 +125,7 @@
           <td class="playerCell"><strong>${escapeHtml(row.name)}</strong><span>${escapeHtml(row.team)} · ${escapeHtml(row.status || 'a')}</span></td>
           <td>${escapeHtml(row.fixture)}</td>
           <td>${escapeHtml(row.position)}</td>
+          <td class="actualPts">${actualPointsFor(row, livePoints) ?? '—'}</td>
           <td class="xPts">${one(row.projected)}</td>
           <td>${row.floor == null ? '—' : `${one(row.floor)}–${one(row.ceiling)}`}</td>
           <td>${row.sharpe == null ? '—' : Number(row.sharpe).toFixed(2)}</td>
@@ -135,13 +137,23 @@
           <td>${pct(row.ownership || 0)}</td>
         </tr>`;
       }).join('');
-      return `<table><thead><tr><th>Player</th><th>Fixture</th><th>Pos</th><th>xPts</th><th>Range</th><th>Sharpe</th><th>Bust / haul</th><th>Risk</th><th>Confidence</th><th>Data quality</th><th>Price</th><th>Owned</th></tr></thead><tbody>${body}</tbody></table>`;
+      return `<table><thead><tr><th>Player</th><th>Fixture</th><th>Pos</th><th>Actual</th><th>xPts</th><th>Range</th><th>Sharpe</th><th>Bust / haul</th><th>Risk</th><th>Confidence</th><th>Data quality</th><th>Price</th><th>Owned</th></tr></thead><tbody>${body}</tbody></table>`;
     }
 
     function renderTable() {
       const items = visibleRows();
       document.querySelector('#ledger-table').innerHTML = tableMarkup(items);
       setText('#row-count', `${items.length} of ${rows.length} players`);
+    }
+
+    async function refreshLivePoints() {
+      livePoints = await loadLivePoints();
+      if (livePoints.available && livePoints.fetchedAt) {
+        setText('#actuals-note', `Official points feed refreshed ${formatShortTime(livePoints.fetchedAt)}. A dash means the player has not recorded minutes yet.`);
+      } else {
+        setText('#actuals-note', 'Official points are temporarily unavailable. Forecasts remain visible and will be retried automatically.');
+      }
+      renderTable();
     }
 
     [search, position, risk, sort].forEach((control) => control.addEventListener(control === search ? 'input' : 'change', renderTable));
@@ -169,7 +181,9 @@
       }
       renderCountdown();
       renderTable();
+      await refreshLivePoints();
       setInterval(renderCountdown, 30000);
+      setInterval(refreshLivePoints, 60000);
     } catch (error) {
       renderError('#ledger-table', error instanceof Error ? error.message : 'Unknown data error');
       setText('#row-count', 'Feed unavailable');
