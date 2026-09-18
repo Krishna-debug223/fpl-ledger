@@ -10,7 +10,7 @@ export default async function handler(request, response) {
     const upstream = await fetch(`https://fantasy.premierleague.com/api/event/${event}/live/`, {
       headers: {
         Accept: "application/json",
-        "User-Agent": "FPL-Ledger/1.0",
+        "User-Agent": "FPL-Modelbook/1.0",
       },
     });
 
