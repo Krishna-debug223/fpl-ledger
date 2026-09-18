@@ -10,7 +10,7 @@ FPL Modelbook is the validation companion to FPL Risk. It separates **prediction
 
 GW5 is the active public forward test.
 
-Before the official FPL deadline, the Ledger reads the production projection export from:
+Before the official FPL deadline, Modelbook reads the production projection export from:
 
 `https://fpl-risk-ui-refresh.vercel.app/api/ledger/snapshot?event=5`
 
@@ -72,7 +72,7 @@ Open the [GW4 verified report](https://fpl-ledger-azure.vercel.app/reports/gw4) 
 ## Repository contents
 
 - `index.html` — current GW5 forward-test overview.
-- `ledger.html` — live/pre-lock or frozen/locked GW5 player ledger.
+- `modelbook.html` — live/pre-lock or frozen/locked GW5 player Modelbook.
 - `report.html` — verified GW3 archive report.
 - `gw4.html` — verified GW4 archive report.
 - `app.js` — current Gameweek configuration, live/locked source selection and shared UI helpers.
