@@ -2,6 +2,7 @@ export const CURRENT_GAMEWEEK = 5;
 export const RISK_BASE_URL = "https://fpl-risk-ui-refresh.vercel.app";
 export const SNAPSHOT_URL = `${RISK_BASE_URL}/api/ledger/snapshot?event=${CURRENT_GAMEWEEK}`;
 export const LOCKED_URL = `./data/gw${CURRENT_GAMEWEEK}-locked.json`;
+export const LIVE_POINTS_URL = `/api/fpl/live/${CURRENT_GAMEWEEK}`;
 
 export async function loadJson(path, options = {}) {
   const response = await fetch(path, { cache: "no-store", ...options });
@@ -83,6 +84,34 @@ export async function loadCurrentLedger() {
   const deadline = Date.parse(data.deadlineTime);
   const mode = Number.isFinite(deadline) && Date.now() >= deadline ? "lock-pending" : "prelock";
   return { mode, data, lockedAt: null, contentHash: null };
+}
+
+/**
+ * Load the official FPL live feed for the current event. The feed is allowed
+ * to be unavailable while a Gameweek has not started; the Modelbook keeps
+ * showing the immutable forecast and fills actual points as minutes arrive.
+ */
+export async function loadLivePoints() {
+  try {
+    const payload = await loadJson(LIVE_POINTS_URL);
+    const players = Object.fromEntries((payload?.elements ?? []).map((element) => {
+      const stats = element?.stats ?? {};
+      return [String(element.id), {
+        minutes: Number(stats.minutes ?? 0),
+        played: Boolean(stats.played),
+        totalPoints: Number(stats.total_points ?? 0),
+      }];
+    }));
+    return { available: true, players, fetchedAt: new Date().toISOString() };
+  } catch {
+    return { available: false, players: {}, fetchedAt: null };
+  }
+}
+
+export function actualPointsFor(row, livePoints) {
+  const player = livePoints?.players?.[String(row?.id)];
+  if (!player || (player.minutes <= 0 && !player.played)) return null;
+  return Number.isFinite(player.totalPoints) ? player.totalPoints : null;
 }
 
 export function ledgerStatus(mode, lockMode = "official-deadline") {
