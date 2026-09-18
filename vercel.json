@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/ledger", "destination": "/ledger.html" },
+    { "source": "/modelbook", "destination": "/modelbook.html" },
     { "source": "/reports/gw4", "destination": "/gw4.html" },
     { "source": "/reports/gw3", "destination": "/report.html" }
   ],
