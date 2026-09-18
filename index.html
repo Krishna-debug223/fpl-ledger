@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="FPL Ledger publishes FPL Risk projections before the Gameweek deadline, freezes the deadline snapshot, and scores that same snapshot against official FPL points.">
-  <title>FPL Ledger — GW5 Forward Test</title>
+  <meta name="description" content="FPL Modelbook publishes FPL Risk projections before the Gameweek deadline, freezes the deadline snapshot, and scores that same snapshot against official FPL points.">
+  <title>FPL Modelbook — GW5 Forward Test</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="navShell">
     <nav class="nav">
-      <a class="brand" href="/"><span class="brandMark">FL</span><span>FPL Ledger</span></a>
+      <a class="brand" href="/"><span class="brandMark">FM</span><span>FPL Modelbook</span></a>
       <div class="links">
-        <a href="/ledger">GW5 Ledger</a>
+        <a href="/modelbook">GW5 Modelbook</a>
         <a href="/reports/gw4">GW4 Archive</a>
         <a href="/reports/gw3">GW3 Archive</a>
         <a class="riskLink" href="https://fpl-risk-ui-refresh.vercel.app/">FPL Risk ↗</a>
@@ -25,21 +25,21 @@
       <div>
         <p class="eyebrow" data-ledger-eyebrow>GW5 · PUBLIC FORWARD TEST</p>
         <h1>Forecasts first.<br>Score them later.</h1>
-        <p class="lead">FPL Ledger records the forecasts produced by FPL Risk. Before the deadline, you can inspect the live GW5 projection set. At the deadline, the exact output is frozen. After the Gameweek, that same snapshot is scored against official FPL points.</p>
+        <p class="lead">FPL Modelbook records the forecasts produced by FPL Risk. Before the deadline, you can inspect the live GW5 projection set. At the deadline, the exact output is frozen. After the Gameweek, that same snapshot is scored against official FPL points.</p>
         <div class="ctaRow">
-          <a class="cta" href="/ledger">Inspect every GW5 projection →</a>
+          <a class="cta" href="/modelbook">Inspect every GW5 projection →</a>
           <a class="cta secondary" href="/reports/gw3">View a completed score report</a>
         </div>
       </div>
       <aside class="statusCard">
-        <span class="statusLabel">Current ledger state</span>
+        <span class="statusLabel">Current Modelbook state</span>
         <strong class="statusBadge" data-ledger-status data-tone="live">GW5 PRE-LOCK</strong>
         <p data-ledger-detail>Projections remain live until the FPL deadline. The exact deadline output will then be frozen for later scoring.</p>
         <div class="countdown"><span>Deadline</span><strong id="countdown">Loading…</strong></div>
       </aside>
     </section>
 
-    <section class="metricGrid" aria-label="GW5 ledger metadata">
+    <section class="metricGrid" aria-label="GW5 Modelbook metadata">
       <article class="metricCard"><span>Players tracked</span><strong id="player-count">—</strong><small>Rows in the current projection export</small></article>
       <article class="metricCard"><span>Model version</span><strong id="model-version">—</strong><small>Version recorded with the snapshot</small></article>
       <article class="metricCard"><span>Last projection build</span><strong id="generated-at">—</strong><small>Updates before the deadline</small></article>
@@ -51,7 +51,7 @@
     <section class="section">
       <div class="sectionHead">
         <h2>Gameweek records</h2>
-        <p>Ledger keeps each Gameweek separate: publish the forecasts, lock the deadline snapshot, then score the frozen predictions when official points are available.</p>
+        <p>Modelbook keeps each Gameweek separate: publish the forecasts, lock the deadline snapshot, then score the frozen predictions when official points are available.</p>
       </div>
 
       <div class="archiveCard">
@@ -59,7 +59,7 @@
           <p class="eyebrow">GW5 · CURRENT FORWARD TEST</p>
           <h3>Live now. Scored after the Gameweek.</h3>
           <p>The current player-level forecasts come directly from the production FPL Risk snapshot endpoint. Accuracy metrics remain pending until the deadline snapshot is frozen and GW5 is complete.</p>
-          <div class="ctaRow"><a class="cta secondary" href="/ledger">Inspect GW5 →</a></div>
+          <div class="ctaRow"><a class="cta secondary" href="/modelbook">Inspect GW5 →</a></div>
         </div>
         <div class="archiveMetric"><strong id="progress-model-version">—</strong><span>Model version</span></div>
         <div class="archiveMetric"><strong id="progress-player-count">—</strong><span>Projection rows</span></div>
@@ -70,7 +70,7 @@
         <div class="archiveIntro">
           <p class="eyebrow">GW4 · ARCHIVE REFERENCE</p>
           <h3>Historical record preserved.</h3>
-          <p>The original GW4 deployment reference is preserved. The exact per-player GW4 snapshot is not currently stored in this repository, so Ledger does not publish unverified GW4 accuracy metrics.</p>
+          <p>The original GW4 deployment reference is preserved. The exact per-player GW4 snapshot is not currently stored in this repository, so Modelbook does not publish unverified GW4 accuracy metrics.</p>
           <div class="ctaRow"><a class="cta secondary" href="/reports/gw4">Open GW4 reference →</a></div>
         </div>
         <div class="archiveMetric"><strong>Archived</strong><span>Original GW4 snapshot reference</span></div>
@@ -94,12 +94,12 @@
     <section class="section">
       <div class="sectionHead">
         <h2>Leading GW5 projections</h2>
-        <p>A preview of the current projection export. Open the full Ledger to search, filter and sort every player.</p>
+        <p>A preview of the current projection export. Open the full Modelbook to search, filter and sort every player.</p>
       </div>
       <div id="preview" class="tableWrap"><div class="loading">Loading the live GW5 projection export…</div></div>
     </section>
 
-    <footer class="footer"><span>Independent FPL analytics · estimates, not guarantees.</span><span>FPL Risk forecasts. FPL Ledger records and evaluates.</span></footer>
+    <footer class="footer"><span>Independent FPL analytics · estimates, not guarantees.</span><span>FPL Risk forecasts. FPL Modelbook records and evaluates.</span></footer>
   </main>
 
   <script type="module">
