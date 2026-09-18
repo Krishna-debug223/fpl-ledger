@@ -65,6 +65,7 @@ export function normalizeLockedArtifact(artifact) {
     data: snapshot,
     lockedAt: artifact?.lockedAt ?? snapshot?.lockedAt ?? null,
     contentHash: artifact?.contentHash ?? snapshot?.contentHash ?? null,
+    lockMode: artifact?.lockMode ?? "official-deadline",
   };
 }
 
@@ -84,12 +85,14 @@ export async function loadCurrentLedger() {
   return { mode, data, lockedAt: null, contentHash: null };
 }
 
-export function ledgerStatus(mode) {
+export function ledgerStatus(mode, lockMode = "official-deadline") {
   if (mode === "locked") {
     return {
-      label: `GW${CURRENT_GAMEWEEK} LOCKED`,
+      label: lockMode === "manual-predeadline" ? `GW${CURRENT_GAMEWEEK} MANUALLY LOCKED` : `GW${CURRENT_GAMEWEEK} LOCKED`,
       eyebrow: `GW${CURRENT_GAMEWEEK} · IMMUTABLE SNAPSHOT`,
-      detail: "The deadline snapshot is frozen. These are the exact forecasts that will be scored.",
+      detail: lockMode === "manual-predeadline"
+        ? "The operator has frozen this exact model export ahead of the official deadline. These are the forecasts used for scoring."
+        : "The deadline snapshot is frozen. These are the exact forecasts that will be scored.",
       tone: "locked",
     };
   }
@@ -121,8 +124,8 @@ export function setText(selector, value) {
   if (node) node.textContent = value;
 }
 
-export function setStatus(mode) {
-  const status = ledgerStatus(mode);
+export function setStatus(mode, lockMode) {
+  const status = ledgerStatus(mode, lockMode);
   const badge = document.querySelector("[data-ledger-status]");
   if (badge) {
     badge.textContent = status.label;

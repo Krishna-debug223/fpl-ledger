@@ -125,6 +125,9 @@
           <td>${escapeHtml(row.fixture)}</td>
           <td>${escapeHtml(row.position)}</td>
           <td class="xPts">${one(row.projected)}</td>
+          <td>${row.floor == null ? '—' : `${one(row.floor)}–${one(row.ceiling)}`}</td>
+          <td>${row.sharpe == null ? '—' : Number(row.sharpe).toFixed(2)}</td>
+          <td>${row.probabilities == null ? '—' : `${Math.round(Number(row.probabilities.bust || 0))}% / ${Math.round(Number(row.probabilities.haul || 0))}%`}</td>
           <td><span class="pill ${escapeHtml(riskClass)}">${escapeHtml(row.risk || '—')}</span></td>
           <td>${escapeHtml(row.confidence || '—')}</td>
           <td>${Math.round(Number(row.dataQuality || 0))}%</td>
@@ -132,7 +135,7 @@
           <td>${pct(row.ownership || 0)}</td>
         </tr>`;
       }).join('');
-      return `<table><thead><tr><th>Player</th><th>Fixture</th><th>Pos</th><th>xPts</th><th>Risk</th><th>Confidence</th><th>Data quality</th><th>Price</th><th>Owned</th></tr></thead><tbody>${body}</tbody></table>`;
+      return `<table><thead><tr><th>Player</th><th>Fixture</th><th>Pos</th><th>xPts</th><th>Range</th><th>Sharpe</th><th>Bust / haul</th><th>Risk</th><th>Confidence</th><th>Data quality</th><th>Price</th><th>Owned</th></tr></thead><tbody>${body}</tbody></table>`;
     }
 
     function renderTable() {
@@ -149,12 +152,14 @@
       rows = [...(data.rows ?? [])];
       currentMode = ledger.mode;
       currentDeadline = data.deadlineTime;
-      setStatus(ledger.mode);
+      setStatus(ledger.mode, ledger.lockMode);
       setText('#deadline-time', formatShortTime(data.deadlineTime));
       setText('#player-count', data.playerCount ?? rows.length);
       setText('#model-version', data.modelVersion ?? '—');
       setText('#generated-at', formatShortTime(data.generatedAt));
-      setText('#source-state', ledger.mode === 'locked' ? `Locked ${formatDateTime(ledger.lockedAt)}` : 'Live production export');
+      setText('#source-state', ledger.mode === 'locked'
+        ? `${ledger.lockMode === 'manual-predeadline' ? 'Manually locked' : 'Locked'} ${formatDateTime(ledger.lockedAt)}`
+        : 'Live production export');
       if (ledger.mode === 'locked' && ledger.contentHash) {
         setText('#integrity-label', 'SHA-256 fingerprint of the frozen deadline snapshot');
         setText('#integrity-hash', ledger.contentHash);
